@@ -1,5 +1,10 @@
+import os
+
 from flask import Flask, request, render_template, redirect, url_for
 from meta_hidden_interests_extractor import get_hidden_interests
+
+
+META_API_KEY = os.environ.get('META_API_KEY')
 
 app = Flask(__name__)
 

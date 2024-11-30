@@ -1,5 +1,11 @@
 import requests
-from credentials import META_API_KEY
+import os
+
+
+META_API_KEY = os.environ.get('META_API_KEY')
+
+if not META_API_KEY:
+    raise ValueError("No META_API_KEY environment variable set")
 
 
 def get_hidden_interests(search_key: str) -> list[dict] | str:
