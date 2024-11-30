@@ -34,4 +34,4 @@ def index():
     return render_template('index.html', data=data_for_page, search_key=search_key, page=page, total_pages=total_pages)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5100)
+    app.run(port=5000)
