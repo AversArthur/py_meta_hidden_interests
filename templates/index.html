@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta Hidden Interests</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Enter Search Key for Meta Hidden Interests</h1>
+        <form method="POST">
+            <label>
+                <input type="text" name="search_key" placeholder="Enter search key" value="{{ search_key }}" required>
+            </label>
+            <button type="submit">Search</button>
+        </form>
+
+        {% if data %}
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Audience</th>
+                        <th>Path</th>
+                        <th>Topic</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in data %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.audience }}</td>
+                        <td>{{ item.path }}</td>
+                        <td>{{ item.topic }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination">
+            {% if page > 1 %}
+            <a href="?page={{ page - 1 }}&search_key={{ search_key }}"><button>Previous</button></a>
+            {% endif %}
+            <span>Page {{ page }} of {{ total_pages }}</span>
+            {% if page < total_pages %}
+            <a href="?page={{ page + 1 }}&search_key={{ search_key }}"><button>Next</button></a>
+            {% endif %}
+        </div>
+        {% else %}
+        <p>No data available. Please enter a search key and try again.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
