@@ -1,16 +1,16 @@
 import os
+from dotenv import load_dotenv
 
 from flask import Flask, request, render_template, redirect, url_for
 from meta_hidden_interests_extractor import get_hidden_interests
 
-
+load_dotenv()
 META_API_KEY = os.environ.get('META_API_KEY')
 
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    # Получаем search_key из запроса
     search_key = request.args.get('search_key', '')
     print(f"Received search_key from GET: {search_key}")
 
@@ -26,7 +26,6 @@ def index():
         print('No search key, returning empty page.')
         return render_template('index.html', search_key=search_key, page=page, total_pages=0, data=[])
 
-    # Если есть search_key, вызываем функцию для получения данных
     all_data = get_hidden_interests(search_key)
     print(f"Data received: {len(all_data)} items")
 
